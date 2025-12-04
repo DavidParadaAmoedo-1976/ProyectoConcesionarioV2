@@ -4,6 +4,7 @@ import modelo.ClienteDTO;
 import modelo.CocheDTO;
 import modelo.VendedorDTO;
 import modelo.VentaDTO;
+import modelo.OpcionesMenu;
 import vista.ConcesionarioVista;
 
 import java.time.LocalDate;
@@ -28,20 +29,26 @@ public class ConcesionarioControlador {
     }
 
     public void ejecuta() {
-        int opcion = -1;
-        while (opcion != 0) {
+        OpcionesMenu opcion = null;
+        while (true) {
             vista.mostrarMenu();
-            opcion = solicitarInt("Introduce una opción: ", ZERO, MENU_MAXIMO);
+            int seleccion = solicitarInt("\nIntroduce una opcion",1,OpcionesMenu.values().length);
+            opcion = OpcionesMenu.values()[seleccion];
             switch (opcion) {
-                case 1 -> anadirCoche();
-                case 2 -> mostrarCoches(coches);
-                case 3 -> buscarCoches(coches);
-                case 4 -> anadirCliente();
-                case 5 -> registrarVenta();
-                case 6 -> vista.mostrarVentas(ventas);
-                case 7 -> vista.mostrarClientes(clientes);
-                case 8 -> mostrarOrdenados();
-                case 0 -> vista.mostrarSalida();
+                case ANHADIR_COCHE -> anadirCoche();
+                case MOSTRAR_COCHES -> mostrarCoches(coches);
+                case BUSCAR_COCHE -> buscarCoches(coches);
+                case ANHADIR_CLIENTE -> anadirCliente();
+                case MOSTRAR_CLIENTES -> vista.mostrarClientes(clientes);
+                case ANHADIR_VENTAS -> registrarVenta();
+                case MOSTRAR_VENTAS -> vista.mostrarVentas(ventas);
+                case ANHADIR_VENDEDOR -> {}
+                case MOSTRAR_VENDEDORES -> {}
+                case MOSTRAR_ESTADISTICAS -> {}
+                case MOSTRAR_CLIENTE_ORDENADOS -> mostrarOrdenados();
+                case MOSTRAR_TODOS_LOS_COCHES -> {}
+                case SALIR -> vista.mostrarSalida();
+                case null -> {}
             }
         }
     }

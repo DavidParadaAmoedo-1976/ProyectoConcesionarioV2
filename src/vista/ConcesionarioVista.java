@@ -1,10 +1,10 @@
 package vista;
 
-import controlador.ValidarDatos;
 import modelo.ClienteDTO;
 import modelo.CocheDTO;
 import modelo.VendedorDTO;
 import modelo.VentaDTO;
+import modelo.OpcionesMenu;
 
 import java.util.List;
 import java.util.Scanner;
@@ -14,16 +14,11 @@ public class ConcesionarioVista {
     private final Scanner sc = new Scanner(System.in);
 
     public void mostrarMenu() {
-        System.out.println("""
-                
-                1.- Añadir coches al concesionario.
-                2.- Mostar los coches disponibles.
-                3.- Buscar coches.
-                4.- Registrar un nuevo cliente.
-                5.- Registrar una venta.
-                6.- Listar ventas.
-                0.- Salir
-                """);
+        OpcionesMenu[] opciones = OpcionesMenu.values();
+
+        for (int i = 0; i < opciones.length; i++) {
+            System.out.println((i + 1) + ".\t" + opciones[i].getTextoOpciones());
+        }
     }
 
     public void mostrarMenuBuscar() {
