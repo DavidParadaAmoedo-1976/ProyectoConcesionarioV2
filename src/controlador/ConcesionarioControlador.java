@@ -4,7 +4,7 @@ import modelo.ClienteDTO;
 import modelo.CocheDTO;
 import modelo.VendedorDTO;
 import modelo.VentaDTO;
-import modelo.OpcionesMenu;
+import modelo.OpcionesMenuEnum;
 import vista.ConcesionarioVista;
 
 import java.time.LocalDate;
@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ConcesionarioControlador {
-    private final int ZERO = 0, MENU_MAXIMO = 8, MENU_BUSCAR_MAXIMO = 3, ANIO_MATRICULACION_MINIMO = 1950, ANIO_MATRICULACION_MAXIMO = 2025, MAX_KM = Integer.MAX_VALUE;
+    private final int ZERO = 0, MENU_BUSCAR_MAXIMO = 3, ANIO_MATRICULACION_MINIMO = 1950, ANIO_MATRICULACION_MAXIMO = 2025, MAX_KM = Integer.MAX_VALUE;
     private final double PRECIO_MAXIMO = Double.MAX_VALUE;
     private final ConcesionarioVista vista;
     private final List<ClienteDTO> clientes;
@@ -29,11 +29,11 @@ public class ConcesionarioControlador {
     }
 
     public void ejecuta() {
-        OpcionesMenu opcion = null;
+        OpcionesMenuEnum opcion = null;
         while (true) {
             vista.mostrarMenu();
-            int seleccion = solicitarInt("\nIntroduce una opción: ",ZERO,OpcionesMenu.values().length);
-            opcion = OpcionesMenu.values()[seleccion];
+            int seleccion = solicitarInt("\nIntroduce una opción: ",ZERO, OpcionesMenuEnum.values().length);
+            opcion = OpcionesMenuEnum.values()[seleccion];
             switch (opcion) {
                 case ANHADIR_COCHE -> anadirCoche();
                 case MOSTRAR_COCHES -> mostrarCoches(coches);
@@ -42,8 +42,8 @@ public class ConcesionarioControlador {
                 case MOSTRAR_CLIENTES -> vista.mostrarClientes(clientes);
                 case ANHADIR_VENTAS -> registrarVenta();
                 case MOSTRAR_VENTAS -> vista.mostrarVentas(ventas);
-                case ANHADIR_VENDEDOR -> {}
-                case MOSTRAR_VENDEDORES -> {}
+                case ANHADIR_VENDEDOR -> anhadirVendedor();
+                case MOSTRAR_VENDEDORES -> vista.mostrarVendedores(vendedores);
                 case MOSTRAR_ESTADISTICAS -> {}
                 case MOSTRAR_CLIENTE_ORDENADOS -> mostrarOrdenados();
                 case MOSTRAR_TODOS_LOS_COCHES -> {}
@@ -53,6 +53,19 @@ public class ConcesionarioControlador {
                 }
             }
         }
+    }
+
+    private void anhadirVendedor() {
+        VendedorDTO nuevoVendedor = obtenerDatosVendedor();
+
+        vendedores.add(nuevoVendedor);
+
+    }
+
+    private VendedorDTO obtenerDatosVendedor() {
+        String nombre = vista.solicitarEntrada("Introduce el nombre completo del nuevo vendedor.");
+        String dni = solicitarDni();
+        return new VendedorDTO(nombre,dni,null);
     }
 
     private void mostrarOrdenados() {

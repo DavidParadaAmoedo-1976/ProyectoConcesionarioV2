@@ -1,6 +1,6 @@
 package modelo;
 
-public enum Colores {
+public enum ColoresEnum {
 
 
 
@@ -16,7 +16,7 @@ public enum Colores {
 
 
     private final String color;
-    Colores(String unicode) {
+    ColoresEnum(String unicode) {
         this.color = unicode;
     }
 

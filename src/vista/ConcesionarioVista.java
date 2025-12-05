@@ -4,7 +4,7 @@ import modelo.ClienteDTO;
 import modelo.CocheDTO;
 import modelo.VendedorDTO;
 import modelo.VentaDTO;
-import modelo.OpcionesMenu;
+import modelo.OpcionesMenuEnum;
 
 import java.util.List;
 import java.util.Scanner;
@@ -14,7 +14,7 @@ public class ConcesionarioVista {
     private final Scanner sc = new Scanner(System.in);
 
     public void mostrarMenu() {
-        OpcionesMenu[] opciones = OpcionesMenu.values();
+        OpcionesMenuEnum[] opciones = OpcionesMenuEnum.values();
 
         for (int i = 1; i < opciones.length; i++) {
             System.out.println(i + ".\t" + opciones[i].getTextoOpciones());

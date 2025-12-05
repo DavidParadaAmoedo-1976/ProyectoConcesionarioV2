@@ -1,6 +1,6 @@
 package modelo;
 
-public enum OpcionesMenu {
+public enum OpcionesMenuEnum {
     SALIR ("Salir del programa."),
     ANHADIR_COCHE ("Añadir un nuevo coche."),
     MOSTRAR_COCHES ("Mostrar Los coches disponibles."),
@@ -17,7 +17,7 @@ public enum OpcionesMenu {
 
     private String textoOpciones;
 
-    OpcionesMenu(String textoOpciones) {
+    OpcionesMenuEnum(String textoOpciones) {
         this.textoOpciones = textoOpciones;
     }
 
