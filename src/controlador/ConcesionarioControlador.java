@@ -32,7 +32,7 @@ public class ConcesionarioControlador {
         OpcionesMenu opcion = null;
         while (true) {
             vista.mostrarMenu();
-            int seleccion = solicitarInt("\nIntroduce una opcion",1,OpcionesMenu.values().length);
+            int seleccion = solicitarInt("\nIntroduce una opción: ",ZERO,OpcionesMenu.values().length);
             opcion = OpcionesMenu.values()[seleccion];
             switch (opcion) {
                 case ANHADIR_COCHE -> anadirCoche();
@@ -47,8 +47,10 @@ public class ConcesionarioControlador {
                 case MOSTRAR_ESTADISTICAS -> {}
                 case MOSTRAR_CLIENTE_ORDENADOS -> mostrarOrdenados();
                 case MOSTRAR_TODOS_LOS_COCHES -> {}
-                case SALIR -> vista.mostrarSalida();
-                case null -> {}
+                case SALIR -> {
+                    vista.mostrarSalida();
+                    return;
+                }
             }
         }
     }

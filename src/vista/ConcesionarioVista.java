@@ -16,9 +16,10 @@ public class ConcesionarioVista {
     public void mostrarMenu() {
         OpcionesMenu[] opciones = OpcionesMenu.values();
 
-        for (int i = 0; i < opciones.length; i++) {
-            System.out.println((i + 1) + ".\t" + opciones[i].getTextoOpciones());
+        for (int i = 1; i < opciones.length; i++) {
+            System.out.println(i + ".\t" + opciones[i].getTextoOpciones());
         }
+        System.out.println("0.\tSalir.");
     }
 
     public void mostrarMenuBuscar() {
@@ -37,7 +38,8 @@ public class ConcesionarioVista {
     }
 
     public void mostrarSalida() {
-        System.out.println("Saliendo...");
+        System.out.println("Saliendo del programa...");
+
     }
 
 

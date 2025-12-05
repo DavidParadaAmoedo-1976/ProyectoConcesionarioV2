@@ -1,6 +1,7 @@
 package modelo;
 
 public enum OpcionesMenu {
+    SALIR ("Salir del programa."),
     ANHADIR_COCHE ("Añadir un nuevo coche."),
     MOSTRAR_COCHES ("Mostrar Los coches disponibles."),
     BUSCAR_COCHE ("Buscar un coche."),
@@ -12,8 +13,8 @@ public enum OpcionesMenu {
     MOSTRAR_VENDEDORES("Mostrar los vendedores."),
     MOSTRAR_ESTADISTICAS("Mostrar las estadisticas de un vendedor."),
     MOSTRAR_CLIENTE_ORDENADOS ("Mostrar los clientes ordenados."),
-    MOSTRAR_TODOS_LOS_COCHES("Mostrar todos los coches que han pasado por el concesionario."),
-    SALIR ("Salir del programa.");
+    MOSTRAR_TODOS_LOS_COCHES("Mostrar todos los coches que han pasado por el concesionario.");
+
     private String textoOpciones;
 
     OpcionesMenu(String textoOpciones) {
