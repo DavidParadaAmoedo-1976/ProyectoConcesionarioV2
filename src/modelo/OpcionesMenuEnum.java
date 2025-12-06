@@ -12,7 +12,7 @@ public enum OpcionesMenuEnum {
     ANHADIR_VENDEDOR("Crear un nuevo vendedor."),
     MOSTRAR_VENDEDORES("Mostrar los vendedores."),
     MOSTRAR_ESTADISTICAS("Mostrar las estadisticas de un vendedor."),
-    MOSTRAR_COCHES_ORDENADOS("Mostrar los clientes ordenados."),
+    MOSTRAR_COCHES_ORDENADOS("Mostrar los coches ordenados por precio marca y año de matriculación."),
     MOSTRAR_TODOS_LOS_COCHES("Mostrar todos los coches que han pasado por el concesionario.");
 
     private final String textoOpciones;

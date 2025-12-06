@@ -50,11 +50,9 @@ public class ConcesionarioControlador {
                 case MOSTRAR_VENTAS -> vista.mostrarVentas(ventas);
                 case ANHADIR_VENDEDOR -> anhadirVendedor();
                 case MOSTRAR_VENDEDORES -> vista.mostrarVendedores(vendedores);
-                case MOSTRAR_ESTADISTICAS -> {
-                }
+                case MOSTRAR_ESTADISTICAS -> extraerEstadisticas();
                 case MOSTRAR_COCHES_ORDENADOS -> listarOrdenados(coches);
-                case MOSTRAR_TODOS_LOS_COCHES -> {
-                }
+                case MOSTRAR_TODOS_LOS_COCHES -> vista.mostrarCoches(coches);
                 case SALIR -> {
                     vista.mostrarSalida();
                     return;
@@ -62,6 +60,8 @@ public class ConcesionarioControlador {
             }
         }
     }
+
+
 
     //  Funciones del SWITCH
 
@@ -101,7 +101,32 @@ public class ConcesionarioControlador {
         VendedorDTO nuevoVendedor = obtenerDatosVendedor();
         vendedores.add(nuevoVendedor);
     }
-//
+
+    private void extraerEstadisticas() {
+        List<CocheDTO> cochesVendidosVendedor = new ArrayList<>();
+        vista.mostrarVendedores(vendedores);
+        int idVendedor = solicitarInt("Introduce el id del vendedor para ver sus estadisticas: ", 1, 2);
+        VendedorDTO vendedorSeleccionado = null;
+        for (VendedorDTO vendedor : vendedores) {
+            if (vendedor.getIdVendedor() == idVendedor) {
+                cochesVendidosVendedor = vendedor.getCochesVendidos();
+                vendedorSeleccionado = vendedor;
+            }
+        }
+        double sumaPrecios = 0;
+        double precioMasAlto = 0;
+        CocheDTO cocheMasCaro = null;
+        for (CocheDTO coche : cochesVendidosVendedor) {
+            sumaPrecios += coche.getPrecio();
+            if (precioMasAlto < coche.getPrecio()) {
+                precioMasAlto = coche.getPrecio();
+                cocheMasCaro = coche;
+            }
+        }
+        double mediaPrecio = sumaPrecios / cochesVendidosVendedor.size();
+
+        vista.mostrarEstadisticas(vendedorSeleccionado, mediaPrecio, cocheMasCaro, cochesVendidosVendedor.size(), cochesVendidosVendedor, sumaPrecios);
+    }
 
     private void listarOrdenados(List<CocheDTO> coches) {
         List<CocheDTO> listaDeCochesOrdenada = new ArrayList<>(coches);

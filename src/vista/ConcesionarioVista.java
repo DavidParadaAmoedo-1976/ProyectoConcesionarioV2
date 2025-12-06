@@ -99,9 +99,32 @@ public class ConcesionarioVista {
 
         for (CocheDTO coche : listaCoches) {
             if (!coche.isDisponible()) {
-                System.out.printf("\n" + "\t".repeat(10) + " \u2502 %-12s \u2502 %-12s \u2502  %-7s  \u2502 %-4d \u2502  %9d \u2502 %8.2f \u2502 ", coche.getMarca(), coche.getModelo(), coche.getMatricula(), coche.getAnioMatriculacion(), coche.getKm(), coche.getPrecio());
+                System.out.printf("\n" + "\t".repeat(10) + " \u2502" + ColoresEnum.ROJO.getColor() + " %-12s " + ColoresEnum.RESET.getColor() + "\u2502"
+                                                                            + ColoresEnum.ROJO.getColor() + " %-12s " + ColoresEnum.RESET.getColor() + "\u2502 "
+                                                                            + ColoresEnum.ROJO.getColor() + " %-7s " + ColoresEnum.RESET.getColor() + " \u2502"
+                                                                            + ColoresEnum.ROJO.getColor() + " %-4d " + ColoresEnum.RESET.getColor() + "\u2502 "
+                                                                            + ColoresEnum.ROJO.getColor() + " %9d " + ColoresEnum.RESET.getColor() + "\u2502"
+                                                                            + ColoresEnum.ROJO.getColor() + " %8.2f " + ColoresEnum.RESET.getColor() + "\u2502 ",
+                        coche.getMarca(),
+                        coche.getModelo(),
+                        coche.getMatricula(),
+                        coche.getAnioMatriculacion(),
+                        coche.getKm(),
+                        coche.getPrecio());
+            } if (coche.isDisponible()) {
+                System.out.printf("\n" + "\t".repeat(10) + " \u2502" + ColoresEnum.VERDE.getColor() + " %-12s " + ColoresEnum.RESET.getColor() + "\u2502"
+                                                                            + ColoresEnum.VERDE.getColor() + " %-12s " + ColoresEnum.RESET.getColor() + "\u2502 "
+                                                                            + ColoresEnum.VERDE.getColor() + " %-7s " + ColoresEnum.RESET.getColor() + " \u2502"
+                                                                            + ColoresEnum.VERDE.getColor() + " %-4d " + ColoresEnum.RESET.getColor() + "\u2502 "
+                                                                            + ColoresEnum.VERDE.getColor() + " %9d " + ColoresEnum.RESET.getColor() + "\u2502"
+                                                                            + ColoresEnum.VERDE.getColor() + " %8.2f " + ColoresEnum.RESET.getColor() + "\u2502 ",
+                        coche.getMarca(),
+                        coche.getModelo(),
+                        coche.getMatricula(),
+                        coche.getAnioMatriculacion(),
+                        coche.getKm(),
+                        coche.getPrecio());
             }
-
         }
         System.out.print("\n" + "\t".repeat(10) + " \u2514" + "\u2500".repeat(14) + "\u2534" + "\u2500".repeat(14) + "\u2534" + "\u2500".repeat(11) + "\u2534" + "\u2500".repeat(6) + "\u2534" + "\u2500".repeat(12) + "\u2534" + "\u2500".repeat(10) + "\u2518");
         esperarIntro();
@@ -112,6 +135,18 @@ public class ConcesionarioVista {
         for (VendedorDTO vendedor : vendedores) {
             System.out.println(vendedor.getIdVendedor() + ".- " + vendedor.getNombreCompleto());
         }
+    }
+
+    public void mostrarEstadisticas(VendedorDTO vendedor, double mediaPrecio, CocheDTO cocheMasCaro, int numeroCochesVendidos, List<CocheDTO> cochesVendidosVendedor, double sumaPrecios) {
+        System.out.println("    *** Estadisticas del Vendedor ***\n" +
+                            vendedor.getNombreCompleto() +
+                "\nPrecio medio de los coches vendidos = " + mediaPrecio +
+                "\nEl coche mas caro fue: " + cocheMasCaro.getMarca() + ", " + cocheMasCaro.getModelo() + ", con matrícula: " + cocheMasCaro.getMatricula() + " y con un precio de " + cocheMasCaro.getPrecio() + " €." +
+                "\nEl número de coches vendidos fue de " + numeroCochesVendidos + " coches." +
+                "\nEl total de los coches vendidos suman: " + sumaPrecios +
+                "       *** Lista de coches Vendidos *** ");
+        mostrarCoches(cochesVendidosVendedor);
+
     }
 
     public void logo() {
@@ -132,7 +167,6 @@ public class ConcesionarioVista {
     }
 
 
-//  System.out.printf("\n" + (i + 1) + "-\t " + ROJO + "%-25s, con DNI: %-10s  Nacido en: %-4d" + RESET, alumnos[i].getNombreCompleto(),
-//  alumnos[i].getDni(), alumnos[i].getAnioNacimiento());
+
 
 }

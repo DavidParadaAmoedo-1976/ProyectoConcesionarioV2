@@ -47,47 +47,47 @@ public class DatosDePrueba {
         cochesDePrueba.add(new CocheDTO("Fiat", "Tipo", "3456LMC", 17500, 2020, 42000));
 
         // Lista de coches vendidos
-        List<CocheDTO> cochesVendidos = new ArrayList<>();
 
         CocheDTO coche1 = new CocheDTO("Toyota", "Corolla", "4567JKZ", 9500, 2016, 97000);
         coche1.setDisponible(false);
-        cochesVendidos.add(coche1);
+        cochesDePrueba.add(coche1);
 
         CocheDTO coche2 = new CocheDTO("Seat", "Ibiza", "6789KSP", 12000, 2018, 75000);
         coche2.setDisponible(false);
-        cochesVendidos.add(coche2);
+        cochesDePrueba.add(coche2);
 
         CocheDTO coche3 = new CocheDTO("Renault", "Clio", "7890LDR", 14000, 2019, 61000);
         coche3.setDisponible(false);
-        cochesVendidos.add(coche3);
+        cochesDePrueba.add(coche3);
 
         CocheDTO coche4 = new CocheDTO("Volkswagen", "Golf", "8901JVZ", 12500, 2016, 88000);
         coche4.setDisponible(false);
-        cochesVendidos.add(coche4);
+        cochesDePrueba.add(coche4);
 
         CocheDTO coche5 = new CocheDTO("Ford", "Focus", "9012JVC", 11000, 2017, 93000);
         coche5.setDisponible(false);
-        cochesVendidos.add(coche5);
+        cochesDePrueba.add(coche5);
 
         CocheDTO coche6 = new CocheDTO("Audi", "A3", "0123KSR", 15500, 2019, 58000);
         coche6.setDisponible(false);
-        cochesVendidos.add(coche6);
+        cochesDePrueba.add(coche6);
 
         CocheDTO coche7 = new CocheDTO("BMW", "320d", "1234LDS", 18500, 2020, 45000);
         coche7.setDisponible(false);
-        cochesVendidos.add(coche7);
+        cochesDePrueba.add(coche7);
 
         CocheDTO coche8 = new CocheDTO("Mercedes", "C200", "2345JVZ", 20000, 2016, 70000);
         coche8.setDisponible(false);
-        cochesVendidos.add(coche8);
+        cochesDePrueba.add(coche8);
 
         CocheDTO coche9 = new CocheDTO("Peugeot", "208", "3456KSP", 13500, 2018, 67000);
         coche9.setDisponible(false);
-        cochesVendidos.add(coche9);
+        cochesDePrueba.add(coche9);
 
         CocheDTO coche10 = new CocheDTO("Fiat", "Tipo", "4567LMC", 16000, 2020, 42000);
         coche10.setDisponible(false);
-        cochesVendidos.add(coche10);
+        cochesDePrueba.add(coche10);
+
 
 
         return cochesDePrueba;
