@@ -3,7 +3,6 @@ package modelo;
 public enum ColoresEnum {
 
 
-
     RESET("\u001B[0m"),
     NEGRO("\u001B[30m"),
     ROJO("\u001B[31m"),
@@ -16,6 +15,7 @@ public enum ColoresEnum {
 
 
     private final String color;
+
     ColoresEnum(String unicode) {
         this.color = unicode;
     }

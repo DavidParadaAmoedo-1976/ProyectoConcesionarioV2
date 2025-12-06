@@ -1,10 +1,6 @@
 package vista;
 
-import modelo.ClienteDTO;
-import modelo.CocheDTO;
-import modelo.VendedorDTO;
-import modelo.VentaDTO;
-import modelo.OpcionesMenuEnum;
+import modelo.*;
 
 import java.util.List;
 import java.util.Scanner;
@@ -95,19 +91,21 @@ public class ConcesionarioVista {
         }
     }
 
-    public void mostrarCoches(List<CocheDTO> cochesDisponibles) {
+    public void mostrarCoches(List<CocheDTO> listaCoches) {
         logo();
         System.out.print("\t".repeat(10) + " \u250C" + "\u2500".repeat(14) + "\u252C" + "\u2500".repeat(14) + "\u252C" + "\u2500".repeat(11) + "\u252C" + "\u2500".repeat(6) + "\u252C" + "\u2500".repeat(12) + "\u252C" + "\u2500".repeat(10) + "\u2510");
         System.out.printf("\n" + "\t".repeat(10) + " \u2502 %-12s \u2502 %-12s \u2502 %-7s \u2502 %-4s \u2502 %-10s \u2502 %-8s \u2502", "   Marca", "   Modelo", "Matrícula", "Año", "Kilómetros", " Precio");
         System.out.print("\n" + "\t".repeat(10) + " \u251C" + "\u2500".repeat(14) + "\u253C" + "\u2500".repeat(14) + "\u253C" + "\u2500".repeat(11) + "\u253C" + "\u2500".repeat(6) + "\u253C" + "\u2500".repeat(12) + "\u253C" + "\u2500".repeat(10) + "\u2524");
 
-        for (CocheDTO coche : cochesDisponibles) {
-            System.out.printf("\n" + "\t".repeat(10) + " \u2502 %-12s \u2502 %-12s \u2502  %-7s  \u2502 %-4d \u2502  %9d \u2502 %8.2f \u2502 ", coche.getMarca(), coche.getModelo(), coche.getMatricula(), coche.getAnioMatriculacion(), coche.getKm(), coche.getPrecio());
+        for (CocheDTO coche : listaCoches) {
+            if (!coche.isDisponible()) {
+                System.out.printf("\n" + "\t".repeat(10) + " \u2502 %-12s \u2502 %-12s \u2502  %-7s  \u2502 %-4d \u2502  %9d \u2502 %8.2f \u2502 ", coche.getMarca(), coche.getModelo(), coche.getMatricula(), coche.getAnioMatriculacion(), coche.getKm(), coche.getPrecio());
+            }
+
         }
         System.out.print("\n" + "\t".repeat(10) + " \u2514" + "\u2500".repeat(14) + "\u2534" + "\u2500".repeat(14) + "\u2534" + "\u2500".repeat(11) + "\u2534" + "\u2500".repeat(6) + "\u2534" + "\u2500".repeat(12) + "\u2534" + "\u2500".repeat(10) + "\u2518");
-        System.out.println("\npulsa intro para volver al menú");
-        sc.nextLine();
-        System.out.println("\n".repeat(50));
+        esperarIntro();
+
     }
 
     public void mostrarVendedores(List<VendedorDTO> vendedores) {
@@ -126,5 +124,15 @@ public class ConcesionarioVista {
                 """);
 
     }
+
+    private void esperarIntro() {
+        System.out.println("\npulsa intro para volver al menú");
+        sc.nextLine();
+        System.out.println("\n".repeat(50));
+    }
+
+
+//  System.out.printf("\n" + (i + 1) + "-\t " + ROJO + "%-25s, con DNI: %-10s  Nacido en: %-4d" + RESET, alumnos[i].getNombreCompleto(),
+//  alumnos[i].getDni(), alumnos[i].getAnioNacimiento());
 
 }
