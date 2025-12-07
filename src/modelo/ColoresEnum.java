@@ -39,13 +39,13 @@ public enum ColoresEnum {
     FONDO_CIAN("\u001B[46m"),
     FONDO_BLANCO("\u001B[47m");
 
-    private final String color;
+    private final String formato;
 
     ColoresEnum(String unicode) {
-        this.color = unicode;
+        this.formato = unicode;
     }
 
-    public String getColor() {
-        return color;
+    public String getFormato() {
+        return formato;
     }
 }

@@ -3,6 +3,7 @@ package controlador;
 import modelo.*;
 import vista.ConcesionarioVista;
 
+import java.time.Clock;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -10,7 +11,7 @@ import java.util.List;
 
 
 public class ConcesionarioControlador {
-    private final int ZERO = 0, MENU_BUSCAR_MAXIMO = 3, ANIO_MATRICULACION_MINIMO = 1950, ANIO_MATRICULACION_MAXIMO = 2025, MAX_KM = Integer.MAX_VALUE;
+    private final int ZERO = 0, ANIO_MATRICULACION_MINIMO = 1950, ANIO_MATRICULACION_MAXIMO = 2025, MAX_KM = Integer.MAX_VALUE;
     private final double PRECIO_MAXIMO = Double.MAX_VALUE;
     private final ConcesionarioVista vista;
     private final List<ClienteDTO> clientes;
@@ -60,7 +61,6 @@ public class ConcesionarioControlador {
             }
         }
     }
-
 
     //  Funciones del SWITCH
 
@@ -147,19 +147,7 @@ public class ConcesionarioControlador {
 
         vista.mostrarCoches(listaDeCochesOrdenada, "todos los coches, ordenada por precio, marca y fecha de matriculación");
     }
-//
 
-//
-//    public void mostrarCoches(List<CocheDTO> coches) {
-//        List<CocheDTO> cochesDisponiples = new ArrayList<>();
-//        if (coches.isEmpty()) vista.mensaje("No hay coches en la lista");
-//        for (CocheDTO coche : coches) {
-//            if (coche.isDisponible()) {
-//                cochesDisponiples.add(coche);
-//            }
-//        }
-//        vista.mostrarCoches(cochesDisponiples);
-//    }
 //
 //    private void buscarCoches(List<CocheDTO> coches) {
 //        int opcion = -1;
@@ -210,17 +198,14 @@ public class ConcesionarioControlador {
 //        }
 //        vista.mostrarCoches(busquedaCoche);
 //    }
-//
 
-//
-//
     // Obtener datos
 
     // Coche
     public CocheDTO obtenerDatosCoche() {
         String marca = vista.solicitarEntrada("Introduce la marca del coche: ");
         String modelo = vista.solicitarEntrada("Introduce el modelo del coche: ");
-        String matricula = vista.solicitarEntrada("Introduce la matrícula del coche: ").toUpperCase();
+        String matricula = solicitarMatricula();
         double precio = solicitarDouble("Introduce el precio del coche: ", ZERO, PRECIO_MAXIMO);
         int anioMatriculacion = solicitarInt("Introduce el año de matriculación del coche: ", ANIO_MATRICULACION_MINIMO, ANIO_MATRICULACION_MAXIMO);
         int kilometros = solicitarInt("Introduce los kilometro que tiene el coche: ", ZERO, MAX_KM);
@@ -284,7 +269,7 @@ public class ConcesionarioControlador {
             if (vendedor == null)
                 vista.mensaje("No se encuentra el vendedor");
         }
-        LocalDate fecha = LocalDate.now();
+        LocalDate fecha = LocalDate.now(Clock.systemUTC());
         double precioVenta = coche.getPrecio();
 
         vendedor.getCochesVendidos().add(coche);
@@ -294,11 +279,9 @@ public class ConcesionarioControlador {
         return new VentaDTO(cliente, coche, vendedor, fecha, precioVenta);
     }
 
-
-    // Validar datos
+        // Validar datos
 
     private int solicitarInt(String mensaje, int min, int max) {
-
         while (true) {
             String input = vista.solicitarEntrada(mensaje);
             try {
@@ -354,17 +337,17 @@ public class ConcesionarioControlador {
                 continue;
             }
             String personaDni = "Cliente";
-            if (personaDni.equalsIgnoreCase(persona)) {
+            if (!personaDni.equalsIgnoreCase(persona)) {
                 if (dniExisteEnClientes(dni)) {
                     vista.mensajeError("Ese DNI ya está registrado.");
                     break;
                 }
             }
-            if (dniExisteEnVendedores(dni)) {
+            if (!dniExisteEnVendedores(dni)) {
                 vista.mensajeError("Ese DNI ya está registrado.");
                 break;
             }
-            break; // DNI válido y no repetido
+            break;
         }
         return dni;
     }
@@ -383,6 +366,35 @@ public class ConcesionarioControlador {
     private boolean dniExisteEnVendedores(String dni) {
         for (VendedorDTO vendedor : vendedores) {
             if (vendedor.getDni().equalsIgnoreCase(dni)) return true;
+        }
+        return false;
+    }
+    private String solicitarMatricula() {
+        String matricula;
+        while (true){
+            matricula = vista.solicitarEntrada("Introduce la matrícula del coche sin espacios ni guiones: ").toUpperCase();
+
+            if (!validarFormatoMatricula(matricula)){
+                vista.mensajeError("El formato de matricula es incorrecto para este país.");
+                continue;
+            }
+
+            if (!matriculaExiste(matricula)){
+                vista.mensajeError("Esa matricula ya existe en el concesionario.");
+                continue;
+            }
+            break;
+        }
+        return matricula;
+    }
+
+    private boolean validarFormatoMatricula (String matricula){
+        return matricula != null && (matricula.matches("\\d{4}[a-zA-Z]{3}") || matricula.matches ("[a-zA-Z]{2}\\d{4}[a-zA-Z]{1,2}"));
+    }
+
+    private boolean matriculaExiste(String matricula){
+        for (CocheDTO coche : coches){
+            if (coche.getMatricula().equalsIgnoreCase(matricula)) return true;
         }
         return false;
     }

@@ -10,11 +10,11 @@ public class ConcesionarioVista {
 
     public void mostrarMenu() {
         OpcionesMenuEnum[] opciones = OpcionesMenuEnum.values();
-        System.out.println("\n" + "\t".repeat(6) + ColoresEnum.ORO.getColor() + ColoresEnum.SUBRAYADO.getColor() + "*** Menú de opciones ***" + ColoresEnum.RESET.getColor() + "\n");
+        System.out.println("\n" + "\t".repeat(6) + ColoresEnum.ORO.getFormato() + ColoresEnum.SUBRAYADO.getFormato() + "*** Menú de opciones ***" + ColoresEnum.RESET.getFormato() + "\n");
         for (int i = 1; i < opciones.length; i++) {
-            System.out.println("\t".repeat(2) + i + ".\t" + ColoresEnum.NARANJA.getColor() + opciones[i].getTextoOpciones() + ColoresEnum.RESET.getColor());
+            System.out.println("\t".repeat(2) + i + ".\t" + ColoresEnum.NARANJA.getFormato() + opciones[i].getTextoOpciones() + ColoresEnum.RESET.getFormato());
         }
-        System.out.println("\t".repeat(2) + "0." + ColoresEnum.NARANJA.getColor() + "\tSalir." + ColoresEnum.RESET.getColor());
+        System.out.println("\t".repeat(2) + "0." + ColoresEnum.NARANJA.getFormato() + "\tSalir." + ColoresEnum.RESET.getFormato());
     }
 
     public String solicitarEntrada(String mensaje) {
@@ -27,7 +27,7 @@ public class ConcesionarioVista {
     }
 
     public void mensajeError(String mensaje) {
-        System.err.println(mensaje);
+        System.out.println(ColoresEnum.ROJO.getFormato() +  mensaje + ColoresEnum.RESET.getFormato());
     }
 
     public void mensaje(String mensaje) {
@@ -59,7 +59,7 @@ public class ConcesionarioVista {
             System.err.println("No hay ventas en la lista.");
             return;
         }
-        System.out.println(ColoresEnum.MORADO.getColor() + ColoresEnum.SUBRAYADO.getColor() + "\n" + "\t".repeat(8) + "*** Lista de ventas ***" + ColoresEnum.RESET.getColor());
+        System.out.println(ColoresEnum.MORADO.getFormato() + ColoresEnum.SUBRAYADO.getFormato() + "\n" + "\t".repeat(8) + "*** Lista de ventas ***" + ColoresEnum.RESET.getFormato());
         logo();
         System.out.print("\t".repeat(3) + " \u250C" + "\u2500".repeat(6) + "\u252C" + "\u2500".repeat(12) + "\u252C" + "\u2500".repeat(32) + "\u252C" + "\u2500".repeat(32) + "\u252C" + "\u2500".repeat(13) + "\u252C" + "\u2500".repeat(14) + "\u252C" + "\u2500".repeat(14) + "\u252C" + "\u2500".repeat(13) + "\u252C" + "\u2500".repeat(12) + "\u2510");
         System.out.printf("\n" + "\t".repeat(3) + " \u2502 %-4s \u2502 %-10s \u2502 %-30s \u2502 %-30s \u2502 %-10s \u2502 %-12s \u2502 %-12s \u2502  %-7s \u2502 %-10s \u2502 ", " Id ", "   Fecha ", "     Nombre del vendedor", "     Nombre del cliente", "DNI cliente", "   Marca ", "   Modelo ", "Matricula ", "  Precio");
@@ -86,6 +86,10 @@ public class ConcesionarioVista {
     }
 
     public void mostrarCochesSimple(List<CocheDTO> coches) {
+        if (coches == null) {
+            System.err.println("No hay coches en la lista.");
+            return;
+        }
         for (CocheDTO coche : coches) {
             if (coche.isDisponible()) {
                 System.out.printf("%-10s %-10s %-10s %10.2f €%n",
@@ -102,7 +106,7 @@ public class ConcesionarioVista {
             System.err.println("No hay coches en la lista.");
             return;
         }
-        System.out.println(ColoresEnum.MORADO.getColor() + ColoresEnum.SUBRAYADO.getColor() + "\n" + "\t".repeat(8) + "*** Lista de " + tipo + " ***" + ColoresEnum.RESET.getColor());
+        System.out.println(ColoresEnum.MORADO.getFormato() + ColoresEnum.SUBRAYADO.getFormato() + "\n" + "\t".repeat(8) + "*** Lista de " + tipo + " ***" + ColoresEnum.RESET.getFormato());
         logo();
         System.out.print("\t".repeat(10) + " \u250C" + "\u2500".repeat(14) + "\u252C" + "\u2500".repeat(14) + "\u252C" + "\u2500".repeat(11) + "\u252C" + "\u2500".repeat(6) + "\u252C" + "\u2500".repeat(12) + "\u252C" + "\u2500".repeat(10) + "\u2510");
         System.out.printf("\n" + "\t".repeat(10) + " \u2502 %-12s \u2502 %-12s \u2502 %-7s \u2502 %-4s \u2502 %-10s \u2502 %-8s \u2502", "   Marca", "   Modelo", "Matrícula", "Año", "Kilómetros", " Precio");
@@ -111,12 +115,12 @@ public class ConcesionarioVista {
         for (CocheDTO coche : listaCoches) {
             if (!coche.isDisponible()) {
                 System.out.printf("\n" + "\t".repeat(10) + " \u2502"
-                                + ColoresEnum.ROJO.getColor() + " %-12s " + ColoresEnum.RESET.getColor() + "\u2502"
-                                + ColoresEnum.ROJO.getColor() + " %-12s " + ColoresEnum.RESET.getColor() + "\u2502 "
-                                + ColoresEnum.ROJO.getColor() + " %-7s " + ColoresEnum.RESET.getColor() + " \u2502"
-                                + ColoresEnum.ROJO.getColor() + " %-4d " + ColoresEnum.RESET.getColor() + "\u2502 "
-                                + ColoresEnum.ROJO.getColor() + " %9d " + ColoresEnum.RESET.getColor() + "\u2502"
-                                + ColoresEnum.ROJO.getColor() + " %8.2f " + ColoresEnum.RESET.getColor() + "\u2502 ",
+                                + ColoresEnum.ROJO.getFormato() + " %-12s " + ColoresEnum.RESET.getFormato() + "\u2502"
+                                + ColoresEnum.ROJO.getFormato() + " %-12s " + ColoresEnum.RESET.getFormato() + "\u2502 "
+                                + ColoresEnum.ROJO.getFormato() + " %-7s " + ColoresEnum.RESET.getFormato() + " \u2502"
+                                + ColoresEnum.ROJO.getFormato() + " %-4d " + ColoresEnum.RESET.getFormato() + "\u2502 "
+                                + ColoresEnum.ROJO.getFormato() + " %9d " + ColoresEnum.RESET.getFormato() + "\u2502"
+                                + ColoresEnum.ROJO.getFormato() + " %8.2f " + ColoresEnum.RESET.getFormato() + "\u2502 ",
                         coche.getMarca(),
                         coche.getModelo(),
                         coche.getMatricula(),
@@ -126,12 +130,12 @@ public class ConcesionarioVista {
             }
             if (coche.isDisponible()) {
                 System.out.printf("\n" + "\t".repeat(10) + " \u2502"
-                                + ColoresEnum.VERDE.getColor() + " %-12s " + ColoresEnum.RESET.getColor() + "\u2502"
-                                + ColoresEnum.VERDE.getColor() + " %-12s " + ColoresEnum.RESET.getColor() + "\u2502 "
-                                + ColoresEnum.VERDE.getColor() + " %-7s " + ColoresEnum.RESET.getColor() + " \u2502"
-                                + ColoresEnum.VERDE.getColor() + " %-4d " + ColoresEnum.RESET.getColor() + "\u2502 "
-                                + ColoresEnum.VERDE.getColor() + " %9d " + ColoresEnum.RESET.getColor() + "\u2502"
-                                + ColoresEnum.VERDE.getColor() + " %8.2f " + ColoresEnum.RESET.getColor() + "\u2502 ",
+                                + ColoresEnum.VERDE.getFormato() + " %-12s " + ColoresEnum.RESET.getFormato() + "\u2502"
+                                + ColoresEnum.VERDE.getFormato() + " %-12s " + ColoresEnum.RESET.getFormato() + "\u2502 "
+                                + ColoresEnum.VERDE.getFormato() + " %-7s " + ColoresEnum.RESET.getFormato() + " \u2502"
+                                + ColoresEnum.VERDE.getFormato() + " %-4d " + ColoresEnum.RESET.getFormato() + "\u2502 "
+                                + ColoresEnum.VERDE.getFormato() + " %9d " + ColoresEnum.RESET.getFormato() + "\u2502"
+                                + ColoresEnum.VERDE.getFormato() + " %8.2f " + ColoresEnum.RESET.getFormato() + "\u2502 ",
                         coche.getMarca(),
                         coche.getModelo(),
                         coche.getMatricula(),
@@ -155,12 +159,12 @@ public class ConcesionarioVista {
     }
 
     public void mostrarEstadisticas(VendedorDTO vendedor, double mediaPrecio, CocheDTO cocheMasCaro, int numeroCochesVendidos, List<CocheDTO> cochesVendidosVendedor, double sumaPrecios) {
-        System.out.println(ColoresEnum.MORADO.getColor() + ColoresEnum.SUBRAYADO.getColor() + "\n" + "\t".repeat(15) + "*** Estadisticas del Vendedor ***\n" + ColoresEnum.RESET.getColor() +
-                ColoresEnum.CYAN.getColor() + vendedor.getNombreCompleto() + ColoresEnum.RESET.getColor() + "\n" +
-                "\nPrecio medio de los coches vendidos = " + ColoresEnum.CYAN.getColor() + mediaPrecio + ColoresEnum.RESET.getColor() +
-                "\nEl coche mas caro fue: " + ColoresEnum.CYAN.getColor() + cocheMasCaro.getMarca() + ", " + cocheMasCaro.getModelo() + ", con matrícula: " + cocheMasCaro.getMatricula() + " y con un precio de " + cocheMasCaro.getPrecio() + " €." + ColoresEnum.RESET.getColor() +
-                "\nEl número de coches vendidos fue de " + ColoresEnum.CYAN.getColor() + numeroCochesVendidos + " coches." + ColoresEnum.RESET.getColor() +
-                "\nEl total de los coches vendidos suman: " + ColoresEnum.CYAN.getColor() + sumaPrecios + ColoresEnum.RESET.getColor());
+        System.out.println(ColoresEnum.MORADO.getFormato() + ColoresEnum.SUBRAYADO.getFormato() + "\n" + "\t".repeat(15) + "*** Estadisticas del Vendedor ***\n" + ColoresEnum.RESET.getFormato() +
+                ColoresEnum.CYAN.getFormato() + vendedor.getNombreCompleto() + ColoresEnum.RESET.getFormato() + "\n" +
+                "\nPrecio medio de los coches vendidos = " + ColoresEnum.CYAN.getFormato() + mediaPrecio + ColoresEnum.RESET.getFormato() +
+                "\nEl coche mas caro fue: " + ColoresEnum.CYAN.getFormato() + cocheMasCaro.getMarca() + ", " + cocheMasCaro.getModelo() + ", con matrícula: " + cocheMasCaro.getMatricula() + " y con un precio de " + cocheMasCaro.getPrecio() + " €." + ColoresEnum.RESET.getFormato() +
+                "\nEl número de coches vendidos fue de " + ColoresEnum.CYAN.getFormato() + numeroCochesVendidos + " coches." + ColoresEnum.RESET.getFormato() +
+                "\nEl total de los coches vendidos suman: " + ColoresEnum.CYAN.getFormato() + sumaPrecios + ColoresEnum.RESET.getFormato());
         mostrarCoches(cochesVendidosVendedor, "vendidos por el vendedor");
     }
 
