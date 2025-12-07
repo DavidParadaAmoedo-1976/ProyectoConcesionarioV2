@@ -47,20 +47,18 @@ public class ConcesionarioVista {
                     cliente.getTelefono()
             );
 
-            if (cliente.getCochesComprados().isEmpty()) {
+            if (cliente.getCochesComprados() == null || cliente.getCochesComprados().isEmpty()) {
                 System.out.print("El cliente aún no tiene coches comprados");
             } else {
                 for (CocheDTO coche : cliente.getCochesComprados()) {
                     System.out.print(coche.getMarca() + " " + coche.getModelo() + " "  + coche.getMatricula() + " ");
                 }
             }
-
             System.out.println();
         }
 
         System.out.println();
     }
-
 
     public void mostrarVentas(List<VentaDTO> ventas) {
         if (ventas == null){

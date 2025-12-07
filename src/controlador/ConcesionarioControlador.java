@@ -289,6 +289,7 @@ public class ConcesionarioControlador {
         double precioVenta = coche.getPrecio();
 
         vendedor.getCochesVendidos().add(coche);
+        cliente.getCochesComprados().add(coche);
         coche.setDisponible(false);
 
         return new VentaDTO(cliente, coche, vendedor, fecha, precioVenta);
