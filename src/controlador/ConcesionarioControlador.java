@@ -62,7 +62,6 @@ public class ConcesionarioControlador {
     }
 
 
-
     //  Funciones del SWITCH
 
     private void anhadirCoche() {
@@ -116,14 +115,14 @@ public class ConcesionarioControlador {
                 break;
             }
         }
-        if (vendedorSeleccionado == null){
+        if (vendedorSeleccionado == null) {
             System.out.println("El id no corresponde a ningun vendedor.");
             return;
         }
 
         List<CocheDTO> cochesVendidosVendedor = vendedorSeleccionado.getCochesVendidos();
 
-        if (cochesVendidosVendedor.isEmpty()){
+        if (cochesVendidosVendedor.isEmpty()) {
             System.out.println("No hay coches vendidos en la lista.");
             return;
         }

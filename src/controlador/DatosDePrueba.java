@@ -89,7 +89,6 @@ public class DatosDePrueba {
         cochesDePrueba.add(coche10);
 
 
-
         return cochesDePrueba;
     }
 
@@ -118,14 +117,14 @@ public class DatosDePrueba {
     }
 
     public List<VentaDTO> ventasDePrueba(
-        List<ClienteDTO> clientes,
-        List<CocheDTO> coches,
-        List<VendedorDTO> vendedores) {
+            List<ClienteDTO> clientes,
+            List<CocheDTO> coches,
+            List<VendedorDTO> vendedores) {
 
         List<CocheDTO> cochesVendidos = new ArrayList<>();
 
-        for (CocheDTO coche : coches){
-            if (!coche.isDisponible()){
+        for (CocheDTO coche : coches) {
+            if (!coche.isDisponible()) {
                 cochesVendidos.add(coche);
             }
         }
@@ -152,7 +151,6 @@ public class DatosDePrueba {
         }
         return ventasDePrueba;
     }
-
 
 
 }
