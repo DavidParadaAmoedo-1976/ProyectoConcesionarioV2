@@ -31,7 +31,7 @@ public class ConcesionarioControlador {
         this.coches.addAll(datosDePrueba.cochesDePrueba());
         this.clientes.addAll(datosDePrueba.clientesDePrueba());
         this.vendedores.addAll(datosDePrueba.vendedoresDePrueba());
-
+        this.ventas.addAll(datosDePrueba.ventasDePrueba(this.clientes, this.coches, this.vendedores));
     }
 
     public void ejecuta() {
@@ -52,7 +52,7 @@ public class ConcesionarioControlador {
                 case MOSTRAR_VENDEDORES -> vista.mostrarVendedores(vendedores);
                 case MOSTRAR_ESTADISTICAS -> extraerEstadisticas();
                 case MOSTRAR_COCHES_ORDENADOS -> listarOrdenados(coches);
-                case MOSTRAR_TODOS_LOS_COCHES -> vista.mostrarCoches(coches);
+                case MOSTRAR_TODOS_LOS_COCHES -> vista.mostrarCoches(coches, "todos los coches del concesionario");
                 case SALIR -> {
                     vista.mostrarSalida();
                     return;
@@ -68,7 +68,7 @@ public class ConcesionarioControlador {
     private void anhadirCoche() {
         CocheDTO nuevoCoche = obtenerDatosCoche();
         coches.add(nuevoCoche);
-        vista.mensaje("Añadido " + nuevoCoche.getMarca() + " " + nuevoCoche.getModelo() + " con matricula: " + nuevoCoche.getMatricula());
+        vista.mensaje("Añadido " + nuevoCoche.getMarca() + " " + nuevoCoche.getModelo() + " con matrícula: " + nuevoCoche.getMatricula());
     }
 
     private void listarDisponibles(List<CocheDTO> coches) {
@@ -79,7 +79,7 @@ public class ConcesionarioControlador {
                 cochesDisponiples.add(coche);
             }
         }
-        vista.mostrarCoches(cochesDisponiples);
+        vista.mostrarCoches(cochesDisponiples, "los coches disponibles para vender");
     }
 
     private void listarBusqueda(List<CocheDTO> coches) {
@@ -103,19 +103,33 @@ public class ConcesionarioControlador {
     }
 
     private void extraerEstadisticas() {
-        List<CocheDTO> cochesVendidosVendedor = new ArrayList<>();
+
         vista.mostrarVendedores(vendedores);
-        int idVendedor = solicitarInt("Introduce el id del vendedor para ver sus estadisticas: ", 1, 2);
+
+        int idVendedor = solicitarInt("Introduce el id del vendedor para ver sus estadisticas: ", 1, vendedores.size());
+
         VendedorDTO vendedorSeleccionado = null;
+
         for (VendedorDTO vendedor : vendedores) {
             if (vendedor.getIdVendedor() == idVendedor) {
-                cochesVendidosVendedor = vendedor.getCochesVendidos();
                 vendedorSeleccionado = vendedor;
+                break;
             }
         }
+        if (vendedorSeleccionado == null){
+            System.out.println("El id no corresponde a ningun vendedor.");
+            return;
+        }
+
+        List<CocheDTO> cochesVendidosVendedor = vendedorSeleccionado.getCochesVendidos();
+
+        if (cochesVendidosVendedor.isEmpty()){
+            System.out.println("No hay coches vendidos en la lista.");
+            return;
+        }
         double sumaPrecios = 0;
-        double precioMasAlto = 0;
-        CocheDTO cocheMasCaro = null;
+        double precioMasAlto = cochesVendidosVendedor.get(0).getPrecio();
+        CocheDTO cocheMasCaro = cochesVendidosVendedor.get(0);
         for (CocheDTO coche : cochesVendidosVendedor) {
             sumaPrecios += coche.getPrecio();
             if (precioMasAlto < coche.getPrecio()) {
@@ -132,7 +146,7 @@ public class ConcesionarioControlador {
         List<CocheDTO> listaDeCochesOrdenada = new ArrayList<>(coches);
         listaDeCochesOrdenada.sort(Comparator.comparingDouble(CocheDTO::getPrecio).thenComparing(CocheDTO::getMarca).thenComparingInt(CocheDTO::getAnioMatriculacion));
 
-        vista.mostrarCoches(listaDeCochesOrdenada);
+        vista.mostrarCoches(listaDeCochesOrdenada, "todos los coches, ordenada por precio, marca y fecha de matriculación");
     }
 //
 

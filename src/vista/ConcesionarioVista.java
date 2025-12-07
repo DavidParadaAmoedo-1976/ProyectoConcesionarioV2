@@ -18,16 +18,6 @@ public class ConcesionarioVista {
         System.out.println("0.\tSalir.");
     }
 
-    public void mostrarMenuBuscar() {
-        System.out.println("""
-                
-                1.- Marca.
-                2.- Rango de precios.
-                3.- Año.
-                0.- Menú principal.
-                """);
-    }
-
     public String solicitarEntrada(String mensaje) {
         System.out.print(mensaje);
         return sc.nextLine();
@@ -59,26 +49,36 @@ public class ConcesionarioVista {
     }
 
     public void mostrarVentas(List<VentaDTO> ventas) {
+        if (ventas == null){
+            System.err.println("No hay ventas en la lista.");
+            return;
+        }
+        System.out.println(ColoresEnum.PURPURA.getColor() + "\n" + "\t".repeat(8) + "*** Lista de ventas ***" + ColoresEnum.RESET.getColor());
+        logo();
+        System.out.print("\t".repeat(3) + " \u250C" + "\u2500".repeat(6) + "\u252C" + "\u2500".repeat(12) + "\u252C" + "\u2500".repeat(32) + "\u252C" + "\u2500".repeat(32) + "\u252C" + "\u2500".repeat(13) + "\u252C" + "\u2500".repeat(14) + "\u252C" + "\u2500".repeat(14) + "\u252C" + "\u2500".repeat(13) + "\u252C" + "\u2500".repeat(12) + "\u2510");
+        System.out.printf("\n" + "\t".repeat(3) + " \u2502 %-4s \u2502 %-10s \u2502 %-30s \u2502 %-30s \u2502 %-10s \u2502 %-12s \u2502 %-12s \u2502  %-7s \u2502 %-10s \u2502 " , " Id ", "   Fecha ", "     Nombre del vendedor", "     Nombre del cliente", "DNI cliente", "   Marca ", "   Modelo ", "Matricula ", "  Precio");
+        System.out.print("\n" + "\t".repeat(3) + " \u251C" + "\u2500".repeat(6) + "\u253C" + "\u2500".repeat(12) + "\u253C" + "\u2500".repeat(32) + "\u253C" + "\u2500".repeat(32) + "\u253C" + "\u2500".repeat(13) + "\u253C" + "\u2500".repeat(14) + "\u253C" + "\u2500".repeat(14) + "\u253C" + "\u2500".repeat(13) + "\u253C" + "\u2500".repeat(12) + "\u2524");
 
         for (VentaDTO venta : ventas) {
             if (venta.getCliente() == null || venta.getCoche() == null || venta.getVendedor() == null) {
                 System.out.println("Venta incompleta (ID: " + venta.getIdVenta() + ")");
                 continue;
             }
-            System.out.println(venta.getIdVenta() + ".- " + venta.getFecha() + " El vendedor " + venta.getVendedor().getNombreCompleto() + " a vendido a " +
-                    venta.getCliente().getNombreCompleto() + " con DNI: " + venta.getCliente().getDni() + " el coche " +
-                    venta.getCoche().getMarca() + " " + venta.getCoche().getModelo() + " con matrícula " + venta.getCoche().getMatricula() +
-                    " por " + venta.getCoche().getPrecio() + " €.");
 
-//            System.out.printf("%-3d %-10s %-10s Matricula: %-7s vendido a %-30s con DNI: %-9s por el vendedor %-30s%n",
-//                    venta.getIdVenta(),
-//                    venta.getCoche().getMarca(),
-//                    venta.getCoche().getModelo(),
-//                    venta.getCoche().getMatricula(),
-//                    venta.getCliente().getNombreCompleto(),
-//                    venta.getCliente().getDni(),
-//                    venta.getVendedor().getNombreCompleto());
+            System.out.printf("\n" + "\t".repeat(3) + " \u2502 %3d  \u2502 %-10s \u2502 %-30s \u2502 %-30s \u2502 %11s \u2502 %12s \u2502 %12s \u2502   %-9s \u2502 %10.2f \u2502",
+
+                    venta.getIdVenta(),
+                    venta.getFecha(),
+                    venta.getVendedor().getNombreCompleto(),
+                    venta.getCliente().getNombreCompleto(),
+                    venta.getCliente().getDni(),
+                    venta.getCoche().getMarca(),
+                    venta.getCoche().getModelo(),
+                    venta.getCoche().getMatricula(),
+                    venta.getCoche().getPrecio());
         }
+        System.out.print("\n" + "\t".repeat(3) + " \u2514" + "\u2500".repeat(6) + "\u2534" + "\u2500".repeat(12) + "\u2534" + "\u2500".repeat(32) + "\u2534" + "\u2500".repeat(32) + "\u2534" + "\u2500".repeat(13) + "\u2534" + "\u2500".repeat(14) + "\u2534" + "\u2500".repeat(14) + "\u2534" + "\u2500".repeat(13) + "\u2534" + "\u2500".repeat(12) + "\u2518");
+        esperarIntro();
     }
 
     public void mostrarCochesSimple(List<CocheDTO> coches) {
@@ -91,7 +91,12 @@ public class ConcesionarioVista {
         }
     }
 
-    public void mostrarCoches(List<CocheDTO> listaCoches) {
+    public void mostrarCoches(List<CocheDTO> listaCoches, String tipo) {
+        if (listaCoches == null){
+            System.err.println("No hay coches en la lista.");
+            return;
+        }
+        System.out.println(ColoresEnum.PURPURA.getColor() + "\n" + "\t".repeat(8) + "*** Lista de " + tipo + " ***" + ColoresEnum.RESET.getColor());
         logo();
         System.out.print("\t".repeat(10) + " \u250C" + "\u2500".repeat(14) + "\u252C" + "\u2500".repeat(14) + "\u252C" + "\u2500".repeat(11) + "\u252C" + "\u2500".repeat(6) + "\u252C" + "\u2500".repeat(12) + "\u252C" + "\u2500".repeat(10) + "\u2510");
         System.out.printf("\n" + "\t".repeat(10) + " \u2502 %-12s \u2502 %-12s \u2502 %-7s \u2502 %-4s \u2502 %-10s \u2502 %-8s \u2502", "   Marca", "   Modelo", "Matrícula", "Año", "Kilómetros", " Precio");
@@ -132,20 +137,23 @@ public class ConcesionarioVista {
     }
 
     public void mostrarVendedores(List<VendedorDTO> vendedores) {
+        if(vendedores == null || vendedores.isEmpty()){
+            System.err.println("No hay vendedores en la lista.");
+            return;
+        }
         for (VendedorDTO vendedor : vendedores) {
             System.out.println(vendedor.getIdVendedor() + ".- " + vendedor.getNombreCompleto());
         }
     }
 
     public void mostrarEstadisticas(VendedorDTO vendedor, double mediaPrecio, CocheDTO cocheMasCaro, int numeroCochesVendidos, List<CocheDTO> cochesVendidosVendedor, double sumaPrecios) {
-        System.out.println("    *** Estadisticas del Vendedor ***\n" +
-                            vendedor.getNombreCompleto() +
-                "\nPrecio medio de los coches vendidos = " + mediaPrecio +
-                "\nEl coche mas caro fue: " + cocheMasCaro.getMarca() + ", " + cocheMasCaro.getModelo() + ", con matrícula: " + cocheMasCaro.getMatricula() + " y con un precio de " + cocheMasCaro.getPrecio() + " €." +
-                "\nEl número de coches vendidos fue de " + numeroCochesVendidos + " coches." +
-                "\nEl total de los coches vendidos suman: " + sumaPrecios +
-                "       *** Lista de coches Vendidos *** ");
-        mostrarCoches(cochesVendidosVendedor);
+        System.out.println(ColoresEnum.PURPURA.getColor() +"\n" + "\t".repeat(15) + "*** Estadisticas del Vendedor ***\n" + ColoresEnum.RESET.getColor() +
+                 ColoresEnum.CYAN.getColor() + vendedor.getNombreCompleto() + ColoresEnum.RESET.getColor() + "\n" +
+                "\nPrecio medio de los coches vendidos = "  + ColoresEnum.CYAN.getColor() + mediaPrecio + ColoresEnum.RESET.getColor() +
+                "\nEl coche mas caro fue: " + ColoresEnum.CYAN.getColor() + cocheMasCaro.getMarca() + ", " + cocheMasCaro.getModelo() + ", con matrícula: " + cocheMasCaro.getMatricula() + " y con un precio de " + cocheMasCaro.getPrecio() + " €." + ColoresEnum.RESET.getColor() +
+                "\nEl número de coches vendidos fue de " + ColoresEnum.CYAN.getColor() + numeroCochesVendidos + " coches." + ColoresEnum.RESET.getColor() +
+                "\nEl total de los coches vendidos suman: " + ColoresEnum.CYAN.getColor() + sumaPrecios + ColoresEnum.RESET.getColor());
+        mostrarCoches(cochesVendidosVendedor, "vendidos por el vendedor");
 
     }
 
