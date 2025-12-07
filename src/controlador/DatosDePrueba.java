@@ -146,8 +146,13 @@ public class DatosDePrueba {
         for (VentaDTO venta : ventasDePrueba) {
             VendedorDTO vendedor = venta.getVendedor();
             vendedor.getCochesVendidos().add(venta.getCoche());
+
+            ClienteDTO cliente = venta.getCliente();
+            cliente.getCochesComprados().add(venta.getCoche());
         }
         return ventasDePrueba;
     }
+
+
 
 }

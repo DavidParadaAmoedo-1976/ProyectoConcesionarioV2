@@ -38,15 +38,29 @@ public class ConcesionarioVista {
         System.out.println();
     }
 
-    public void mostrarClientes(List<ClienteDTO> clienteDTOS) {
-        for (ClienteDTO clienteDTO : clienteDTOS) {
-            System.out.printf("%-25s DNI: %-9s Tlf: %-15s%n",
-                    clienteDTO.getNombreCompleto(),
-                    clienteDTO.getDni(),
-                    clienteDTO.getTelefono());
+    public void mostrarClientes(List<ClienteDTO> clientes) {
+        for (ClienteDTO cliente : clientes) {
+
+            System.out.printf("%-25s DNI: %-9s Tlf: %-15s",
+                    cliente.getNombreCompleto(),
+                    cliente.getDni(),
+                    cliente.getTelefono()
+            );
+
+            if (cliente.getCochesComprados().isEmpty()) {
+                System.out.print("El cliente aún no tiene coches comprados");
+            } else {
+                for (CocheDTO coche : cliente.getCochesComprados()) {
+                    System.out.print(coche.getMarca() + " " + coche.getModelo() + " "  + coche.getMatricula() + " ");
+                }
+            }
+
+            System.out.println();
         }
+
         System.out.println();
     }
+
 
     public void mostrarVentas(List<VentaDTO> ventas) {
         if (ventas == null){

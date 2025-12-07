@@ -234,7 +234,6 @@ public class ConcesionarioControlador {
         String dni = solicitarDni("Cliente");
         String nombre = vista.solicitarEntrada("Introduce el nombre completo del cliente: \n");
         String telefono = solicitarTelefono();
-
         return new ClienteDTO(dni, nombre, telefono);
     }
 
