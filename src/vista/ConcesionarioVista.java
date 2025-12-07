@@ -1,7 +1,9 @@
 package vista;
 
+import controlador.ConcesionarioControlador;
 import modelo.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -40,24 +42,22 @@ public class ConcesionarioVista {
 
     public void mostrarClientes(List<ClienteDTO> clientes) {
         for (ClienteDTO cliente : clientes) {
-
-            System.out.printf("%-25s DNI: %-9s Tlf: %-15s",
-                    cliente.getNombreCompleto(),
-                    cliente.getDni(),
-                    cliente.getTelefono()
-            );
-
             if (cliente.getCochesComprados() == null || cliente.getCochesComprados().isEmpty()) {
                 System.out.print("El cliente aún no tiene coches comprados");
             } else {
                 for (CocheDTO coche : cliente.getCochesComprados()) {
-                    System.out.print(coche.getMarca() + " " + coche.getModelo() + " "  + coche.getMatricula() + " ");
+                    System.out.printf("\n%-25s DNI: %-9s Tlf: %-15s %-10s %-10s %-9s",
+                            cliente.getNombreCompleto(),
+                            cliente.getDni(),
+                            cliente.getTelefono(),
+                            coche.getMarca(),
+                            coche.getModelo(),
+                            coche.getMatricula());
                 }
             }
-            System.out.println();
         }
+        esperarIntro();
 
-        System.out.println();
     }
 
     public void mostrarVentas(List<VentaDTO> ventas) {
@@ -95,11 +95,13 @@ public class ConcesionarioVista {
 
     public void mostrarCochesSimple(List<CocheDTO> coches) {
         for (CocheDTO coche : coches) {
-            System.out.printf("%-10s %-10s %-10s %10.2f €%n",
-                    coche.getMarca(),
-                    coche.getModelo(),
-                    coche.getMatricula(),
-                    coche.getPrecio());
+            if (coche.isDisponible()) {
+                System.out.printf("%-10s %-10s %-10s %10.2f €%n",
+                        coche.getMarca(),
+                        coche.getModelo(),
+                        coche.getMatricula(),
+                        coche.getPrecio());
+            }
         }
     }
 
