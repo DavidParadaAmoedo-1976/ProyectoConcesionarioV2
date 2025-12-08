@@ -37,12 +37,19 @@ public class ConcesionarioVista {
     }
 
     public void mostrarClientes(List<ClienteDTO> clientes) {
+        System.out.println("\n" + "\t".repeat(16) + ColoresEnum.MORADO.getFormato() + ColoresEnum.SUBRAYADO.getFormato()  + "*** Lista de clientes ***" + ColoresEnum.RESET.getFormato() + "\n");
+        logo();
+        System.out.print("\t".repeat(5) + " \u250C" + "\u2500".repeat(34) + "\u252C" + "\u2500".repeat(13) + "\u252C" + "\u2500".repeat(17) + "\u252C" + "\u2500".repeat(43)  + "\u2510");
+        System.out.printf("\n" + "\t".repeat(5) + " \u2502 %-32s \u2502 %-11s \u2502 %-15s \u2502 %8s %11s %-20s \u2502", "   Nombre completo", "  D.N.I.", "   Teléfono", "Coche", "comprado en", "el concesionario  ");
+        System.out.print("\n" + "\t".repeat(5) + " \u251C" + "\u2500".repeat(34) + "\u253C" + "\u2500".repeat(13) + "\u253C" + "\u2500".repeat(17) + "\u253C" + "\u2500".repeat(43) + "\u2524");
+
         for (ClienteDTO cliente : clientes) {
             if (cliente.getCochesComprados() == null || cliente.getCochesComprados().isEmpty()) {
                 System.out.println("El cliente aún no tiene coches comprados");
             } else {
+
                 for (CocheDTO coche : cliente.getCochesComprados()) {
-                    System.out.printf("\n%-25s DNI: %-9s Tlf: %-15s %-10s %-10s %-9s",
+                    System.out.printf("\n" + "\t".repeat(5) + " \u2502 %-32s \u2502 %-11s \u2502 %15s \u2502 %-17s %-12s %10s \u2502",
                             cliente.getNombreCompleto(),
                             cliente.getDni(),
                             cliente.getTelefono(),
@@ -50,8 +57,11 @@ public class ConcesionarioVista {
                             coche.getModelo(),
                             coche.getMatricula());
                 }
+
             }
         }
+        System.out.print("\n" + "\t".repeat(5) + " \u2514" + "\u2500".repeat(34) + "\u2534" + "\u2500".repeat(13) + "\u2534" + "\u2500".repeat(17) + "\u2534" + "\u2500".repeat(43) + "\u2518");
+
         esperarIntro();
     }
 
@@ -60,18 +70,18 @@ public class ConcesionarioVista {
             System.err.println("No hay ventas en la lista.");
             return;
         }
-        System.out.println(ColoresEnum.MORADO.getFormato() + ColoresEnum.SUBRAYADO.getFormato() + "\n" + "\t".repeat(8) + "*** Lista de ventas ***" + ColoresEnum.RESET.getFormato());
+        System.out.println("\n" + "\t".repeat(16) + ColoresEnum.MORADO.getFormato() + ColoresEnum.SUBRAYADO.getFormato() +  "*** Lista de ventas ***" + ColoresEnum.RESET.getFormato() + "\n");
         logo();
-        System.out.print("\t".repeat(3) + " \u250C" + "\u2500".repeat(6) + "\u252C" + "\u2500".repeat(12) + "\u252C" + "\u2500".repeat(32) + "\u252C" + "\u2500".repeat(32) + "\u252C" + "\u2500".repeat(13) + "\u252C" + "\u2500".repeat(14) + "\u252C" + "\u2500".repeat(14) + "\u252C" + "\u2500".repeat(13) + "\u252C" + "\u2500".repeat(12) + "\u2510");
-        System.out.printf("\n" + "\t".repeat(3) + " \u2502 %-4s \u2502 %-10s \u2502 %-30s \u2502 %-30s \u2502 %-10s \u2502 %-12s \u2502 %-12s \u2502  %-7s \u2502 %-10s \u2502 ", " Id ", "   Fecha ", "     Nombre del vendedor", "     Nombre del cliente", "DNI cliente", "   Marca ", "   Modelo ", "Matricula ", "  Precio");
-        System.out.print("\n" + "\t".repeat(3) + " \u251C" + "\u2500".repeat(6) + "\u253C" + "\u2500".repeat(12) + "\u253C" + "\u2500".repeat(32) + "\u253C" + "\u2500".repeat(32) + "\u253C" + "\u2500".repeat(13) + "\u253C" + "\u2500".repeat(14) + "\u253C" + "\u2500".repeat(14) + "\u253C" + "\u2500".repeat(13) + "\u253C" + "\u2500".repeat(12) + "\u2524");
+        System.out.print("\t \u250C" + "\u2500".repeat(6) + "\u252C" + "\u2500".repeat(12) + "\u252C" + "\u2500".repeat(32) + "\u252C" + "\u2500".repeat(32) + "\u252C" + "\u2500".repeat(13) + "\u252C" + "\u2500".repeat(14) + "\u252C" + "\u2500".repeat(14) + "\u252C" + "\u2500".repeat(13) + "\u252C" + "\u2500".repeat(12) + "\u2510");
+        System.out.printf("\n \t \u2502 %-4s \u2502 %-10s \u2502 %-30s \u2502 %-30s \u2502 %-10s \u2502 %-12s \u2502 %-12s \u2502  %-7s \u2502 %-10s \u2502 ", " Id ", "   Fecha ", "     Nombre del vendedor", "     Nombre del cliente", "DNI cliente", "   Marca ", "   Modelo ", "Matricula ", "  Precio" );
+        System.out.print("\n \t \u251C" + "\u2500".repeat(6) + "\u253C" + "\u2500".repeat(12) + "\u253C" + "\u2500".repeat(32) + "\u253C" + "\u2500".repeat(32) + "\u253C" + "\u2500".repeat(13) + "\u253C" + "\u2500".repeat(14) + "\u253C" + "\u2500".repeat(14) + "\u253C" + "\u2500".repeat(13) + "\u253C" + "\u2500".repeat(12) + "\u2524");
 
         for (VentaDTO venta : ventas) {
             if (venta.getCliente() == null || venta.getCoche() == null || venta.getVendedor() == null) {
                 System.out.println("Venta incompleta (ID: " + venta.getIdVenta() + ")");
                 continue;
             }
-            System.out.printf("\n" + "\t".repeat(3) + " \u2502 %3d  \u2502 %-10s \u2502 %-30s \u2502 %-30s \u2502 %11s \u2502 %12s \u2502 %12s \u2502   %-9s \u2502 %10.2f \u2502",
+            System.out.printf("\n" + "\t \u2502 %3d  \u2502 %-10s \u2502 %-30s \u2502 %-30s \u2502 %11s \u2502 %12s \u2502 %12s \u2502   %-9s \u2502 %10.2f \u2502",
                     venta.getIdVenta(),
                     venta.getFecha(),
                     venta.getVendedor().getNombreCompleto(),
@@ -82,7 +92,7 @@ public class ConcesionarioVista {
                     venta.getCoche().getMatricula(),
                     venta.getCoche().getPrecio());
         }
-        System.out.print("\n" + "\t".repeat(3) + " \u2514" + "\u2500".repeat(6) + "\u2534" + "\u2500".repeat(12) + "\u2534" + "\u2500".repeat(32) + "\u2534" + "\u2500".repeat(32) + "\u2534" + "\u2500".repeat(13) + "\u2534" + "\u2500".repeat(14) + "\u2534" + "\u2500".repeat(14) + "\u2534" + "\u2500".repeat(13) + "\u2534" + "\u2500".repeat(12) + "\u2518");
+        System.out.print("\n \t \u2514" + "\u2500".repeat(6) + "\u2534" + "\u2500".repeat(12) + "\u2534" + "\u2500".repeat(32) + "\u2534" + "\u2500".repeat(32) + "\u2534" + "\u2500".repeat(13) + "\u2534" + "\u2500".repeat(14) + "\u2534" + "\u2500".repeat(14) + "\u2534" + "\u2500".repeat(13) + "\u2534" + "\u2500".repeat(12) + "\u2518");
         esperarIntro();
     }
 
@@ -107,7 +117,7 @@ public class ConcesionarioVista {
             System.err.println("No hay coches en la lista.");
             return;
         }
-        System.out.println(ColoresEnum.MORADO.getFormato() + ColoresEnum.SUBRAYADO.getFormato() + "\n" + "\t".repeat(8) + "*** Lista de " + tipo + " ***" + ColoresEnum.RESET.getFormato());
+        System.out.println("\n" + "\t".repeat(13) + ColoresEnum.MORADO.getFormato() + ColoresEnum.SUBRAYADO.getFormato() + "*** Lista de " + tipo + " ***" + ColoresEnum.RESET.getFormato() + "\n");
         logo();
         System.out.print("\t".repeat(10) + " \u250C" + "\u2500".repeat(14) + "\u252C" + "\u2500".repeat(14) + "\u252C" + "\u2500".repeat(11) + "\u252C" + "\u2500".repeat(6) + "\u252C" + "\u2500".repeat(12) + "\u252C" + "\u2500".repeat(10) + "\u2510");
         System.out.printf("\n" + "\t".repeat(10) + " \u2502 %-12s \u2502 %-12s \u2502 %-7s \u2502 %-4s \u2502 %-10s \u2502 %-8s \u2502", "   Marca", "   Modelo", "Matrícula", "Año", "Kilómetros", " Precio");

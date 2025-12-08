@@ -177,7 +177,7 @@ public class ConcesionarioControlador {
         List<CocheDTO> busqueda = new ArrayList<>();
         if (coches == null || coches.isEmpty()) {
             vista.mensajeError("No hay coches en la lista");
-            return null;
+            return busqueda;
         }
         String matricula = solicitarMatricula(true);
         if (!matricula.isBlank()) {
@@ -190,6 +190,21 @@ public class ConcesionarioControlador {
             vista.mensaje("No existen coches con esa matrícula.");
             return busqueda;
         }
+
+        List<CocheDTO> busquedaTemp = new ArrayList<>();
+        boolean disponible = solicitarBoolean();
+        for (CocheDTO coche : coches) {
+            if (coche.isDisponible() == disponible) {
+                busquedaTemp.add(coche);
+            }
+        }
+        if (disponible) {
+            vista.mensaje("Vas a buscar en la lista de coches disponibles");
+        } else {
+            vista.mensaje("Vas a buscar en la lista de coches vendidos");
+        }
+
+
 
         double precioMin, precioMax;
         int anioMin, kmMax;
@@ -216,46 +231,29 @@ public class ConcesionarioControlador {
         }
         int kmMaximos = solicitarInt("Introduce los Kilometros máximos del coche para la busqueda: ", ZERO, KM_MAX, true);
         if (kmMaximos == -1) {
-            kmMax = ZERO;
+            kmMax = KM_MAX;
         } else {
             kmMax = kmMaximos;
         }
-        boolean disponible = solicitarBoolean();
-
-        List<CocheDTO> busquedaTemp = new ArrayList<>();
-        for (CocheDTO coche : coches) {
-            if (coche.isDisponible() == disponible) {
-                busquedaTemp.add(coche);
-            }
-        }
-        if (disponible) {
-            vista.mensaje("Vas a buscar en la lista de coches disponibles");
-        } else {
-            vista.mensaje("Vas a buscar en la lista de coches vendidos");
-        }
-
 
         for (CocheDTO elemento : busquedaTemp) {
-            if (elemento.getMarca().equalsIgnoreCase(marca)) {
-                busqueda.add(elemento);
+            if (!marca.isBlank() && !elemento.getMarca().equalsIgnoreCase(marca)) {
                 continue;
             }
-            if (elemento.getModelo().equalsIgnoreCase(modelo)) {
-                busqueda.add(elemento);
+            if (!modelo.isBlank() && !elemento.getModelo().equalsIgnoreCase(modelo)) {
                 continue;
             }
 
-            if (elemento.getPrecio() >= precioMin && elemento.getPrecio() <= precioMax) {
-                busqueda.add(elemento);
+            if (elemento.getPrecio() <= precioMin || elemento.getPrecio() >= precioMax) {
                 continue;
             }
-            if (elemento.getAnioMatriculacion() > anioMin) {
-                busqueda.add(elemento);
+            if (elemento.getAnioMatriculacion() < anioMin) {
                 continue;
             }
-            if (elemento.getKm() <= kmMax) {
-                busqueda.add(elemento);
+            if (elemento.getKm() >= kmMax) {
+                continue;
             }
+            busqueda.add(elemento);
         }
         if (busqueda.isEmpty()) {
             vista.mensaje("No existen coches con esos parametros.");
@@ -366,7 +364,7 @@ public class ConcesionarioControlador {
         String input = "";
 
         while (true) {
-            input = vista.solicitarEntrada("Introduce d|D para coches disponibles o v|V para coches ya vendidos");
+            input = vista.solicitarEntrada("Introduce (D | d) para coches disponibles o (V | v) para coches ya vendidos: ");
             if (input.equalsIgnoreCase("D") || input.equalsIgnoreCase("V")) {
                 break;
             } else {
@@ -439,7 +437,7 @@ public class ConcesionarioControlador {
         while (true) {
             matricula = vista.solicitarEntrada("Introduce la matrícula del coche sin espacios ni guiones: ").toUpperCase();
             if (nulo) {
-                if (matricula == null) break;
+                if (matricula.isBlank()) break;
             }
             if (!validarFormatoMatricula(matricula)) {
                 vista.mensajeError("El formato de matrícula es incorrecto para este país.");
