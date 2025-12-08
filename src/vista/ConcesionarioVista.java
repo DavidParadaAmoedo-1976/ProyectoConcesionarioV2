@@ -1,6 +1,7 @@
 package vista;
 
 import modelo.*;
+
 import java.util.List;
 import java.util.Scanner;
 
@@ -27,7 +28,7 @@ public class ConcesionarioVista {
     }
 
     public void mensajeError(String mensaje) {
-        System.out.println(ColoresEnum.ROJO.getFormato() +  mensaje + ColoresEnum.RESET.getFormato());
+        System.out.println(ColoresEnum.ROJO.getFormato() + mensaje + ColoresEnum.RESET.getFormato());
     }
 
     public void mensaje(String mensaje) {
@@ -127,7 +128,7 @@ public class ConcesionarioVista {
                         coche.getAnioMatriculacion(),
                         coche.getKm(),
                         coche.getPrecio());
-            } else  {
+            } else {
                 System.out.printf("\n" + "\t".repeat(10) + " \u2502"
                                 + ColoresEnum.VERDE.getFormato() + " %-12s " + ColoresEnum.RESET.getFormato() + "\u2502"
                                 + ColoresEnum.VERDE.getFormato() + " %-12s " + ColoresEnum.RESET.getFormato() + "\u2502 "
