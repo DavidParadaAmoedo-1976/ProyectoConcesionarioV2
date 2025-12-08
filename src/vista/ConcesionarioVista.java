@@ -19,7 +19,7 @@ public class ConcesionarioVista {
 
     public String solicitarEntrada(String mensaje) {
         System.out.print(mensaje);
-        return sc.nextLine();
+        return sc.nextLine().trim();
     }
 
     public void mostrarSalida() {
@@ -38,7 +38,7 @@ public class ConcesionarioVista {
     public void mostrarClientes(List<ClienteDTO> clientes) {
         for (ClienteDTO cliente : clientes) {
             if (cliente.getCochesComprados() == null || cliente.getCochesComprados().isEmpty()) {
-                System.out.print("El cliente aún no tiene coches comprados");
+                System.out.println("El cliente aún no tiene coches comprados");
             } else {
                 for (CocheDTO coche : cliente.getCochesComprados()) {
                     System.out.printf("\n%-25s DNI: %-9s Tlf: %-15s %-10s %-10s %-9s",
@@ -55,7 +55,7 @@ public class ConcesionarioVista {
     }
 
     public void mostrarVentas(List<VentaDTO> ventas) {
-        if (ventas == null) {
+        if (ventas == null || ventas.isEmpty()) {
             System.err.println("No hay ventas en la lista.");
             return;
         }
@@ -86,7 +86,7 @@ public class ConcesionarioVista {
     }
 
     public void mostrarCochesSimple(List<CocheDTO> coches) {
-        if (coches == null) {
+        if (coches == null || coches.isEmpty()) {
             System.err.println("No hay coches en la lista.");
             return;
         }
@@ -102,7 +102,7 @@ public class ConcesionarioVista {
     }
 
     public void mostrarCoches(List<CocheDTO> listaCoches, String tipo) {
-        if (listaCoches == null) {
+        if (listaCoches == null || listaCoches.isEmpty()) {
             System.err.println("No hay coches en la lista.");
             return;
         }
@@ -127,8 +127,7 @@ public class ConcesionarioVista {
                         coche.getAnioMatriculacion(),
                         coche.getKm(),
                         coche.getPrecio());
-            }
-            if (coche.isDisponible()) {
+            } else  {
                 System.out.printf("\n" + "\t".repeat(10) + " \u2502"
                                 + ColoresEnum.VERDE.getFormato() + " %-12s " + ColoresEnum.RESET.getFormato() + "\u2502"
                                 + ColoresEnum.VERDE.getFormato() + " %-12s " + ColoresEnum.RESET.getFormato() + "\u2502 "
