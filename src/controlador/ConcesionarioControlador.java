@@ -380,7 +380,7 @@ public class ConcesionarioControlador {
         String input = "";
 
         while (true) {
-            input = vista.solicitarEntrada("Introduce " + dato1 + " | " + dato1.toLowerCase() + " o " + dato2 + " | " + dato1.toLowerCase());
+            input = vista.solicitarEntrada("Introduce " + dato1 + " | " + dato1.toLowerCase() + " o " + dato2 + " | " + dato1.toLowerCase() + ": ");
             if (input.equalsIgnoreCase(dato1) || input.equalsIgnoreCase("V")) {
                 break;
             } else {
