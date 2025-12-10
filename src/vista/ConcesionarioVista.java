@@ -11,11 +11,11 @@ public class ConcesionarioVista {
 
     public void mostrarMenu() {
         OpcionesMenuEnum[] opciones = OpcionesMenuEnum.values();
-        System.out.println("\n" + "\t".repeat(6) + ColoresEnum.ORO.getFormato() + ColoresEnum.SUBRAYADO.getFormato() + "*** Menú de opciones ***" + ColoresEnum.RESET.getFormato() + "\n");
+        System.out.println("\n" + "\t".repeat(6) + ColoresEnum.GRIS.getFormato() + ColoresEnum.SUBRAYADO.getFormato() + "*** Menú de opciones ***" + ColoresEnum.RESET.getFormato() + "\n");
         for (int i = 1; i < opciones.length; i++) {
-            System.out.println("\t".repeat(2) + i + ".\t" + ColoresEnum.ORO.getFormato() + opciones[i].getTextoOpciones() + ColoresEnum.RESET.getFormato());
+            System.out.println("\t".repeat(2) + i + ".\t" + ColoresEnum.GRIS.getFormato() + opciones[i].getTextoOpciones() + ColoresEnum.RESET.getFormato());
         }
-        System.out.println("\t".repeat(2) + "0." + ColoresEnum.ORO.getFormato() + "\tSalir." + ColoresEnum.RESET.getFormato());
+        System.out.println("\t".repeat(2) + "0." + ColoresEnum.GRIS.getFormato() + "\tSalir." + ColoresEnum.RESET.getFormato());
     }
 
     public String solicitarEntrada(String mensaje) {
