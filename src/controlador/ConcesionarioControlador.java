@@ -178,21 +178,37 @@ public class ConcesionarioControlador {
         if (coches == null || coches.isEmpty()) {
             vista.mensajeError("No hay coches en la lista");
             return busqueda;
-        }
-        String matricula = solicitarMatricula(true);
-        if (!matricula.isBlank()) {
-            for (CocheDTO c : coches) {
-                if (c.getMatricula().equalsIgnoreCase(matricula)) {
-                    busqueda.add(c);
+        } else {
+            vista.mensaje("Selecciona C para matrícula completa o P para matrícula parcial");
+            boolean matriculaBusqueda = solicitarBoolean("C", "P");
+            if (matriculaBusqueda) {
+
+                String matricula = solicitarMatricula(true);
+                if (!matricula.isBlank()) {
+                    for (CocheDTO c : coches) {
+                        if (c.getMatricula().equalsIgnoreCase(matricula)) {
+                            busqueda.add(c);
+                            return busqueda;
+                        }
+                    }
+                    vista.mensaje("No existen coches con esa matrícula.");
                     return busqueda;
                 }
+            } else {
+                String matricula = solicitarMatricula(true);
+                for (CocheDTO c : coches) {
+                    if (c.getMatricula().contains(matricula)) {
+                        busqueda.add(c);
+                    }
+                }
+                vista.mensaje("No existen coches con esa matrícula.");
+                return busqueda;
+
             }
-            vista.mensaje("No existen coches con esa matrícula.");
-            return busqueda;
         }
 
         List<CocheDTO> busquedaTemp = new ArrayList<>();
-        boolean disponible = solicitarBoolean();
+        boolean disponible = solicitarBoolean("D","V");
         for (CocheDTO coche : coches) {
             if (coche.isDisponible() == disponible) {
                 busquedaTemp.add(coche);
@@ -360,18 +376,18 @@ public class ConcesionarioControlador {
         }
     }
 
-    private boolean solicitarBoolean() {
+    private boolean solicitarBoolean(String dato1,String dato2) {
         String input = "";
 
         while (true) {
-            input = vista.solicitarEntrada("Introduce (D | d) para coches disponibles o (V | v) para coches ya vendidos: ");
-            if (input.equalsIgnoreCase("D") || input.equalsIgnoreCase("V")) {
+            input = vista.solicitarEntrada("Introduce " + dato1 + " | " + dato1.toLowerCase() + " o " + dato2 + " | " + dato1.toLowerCase());
+            if (input.equalsIgnoreCase(dato1) || input.equalsIgnoreCase("V")) {
                 break;
             } else {
-                vista.mensajeError("Error: Introduzca D o V correctamente.");
+                vista.mensajeError("Error: Introduzca " + dato1 + " o " + dato2 + " correctamente.");
             }
         }
-        return input.equalsIgnoreCase("D");
+        return input.equalsIgnoreCase(dato1);
     }
 
     private String solicitarTelefono() {
@@ -454,7 +470,7 @@ public class ConcesionarioControlador {
     }
 
     private boolean validarFormatoMatricula(String matricula) {
-        return matricula != null && (matricula.matches("\\d{4}[a-zA-Z]{3}") || matricula.matches("[a-zA-Z]{2}\\d{4}[a-zA-Z]{1,2}"));
+        return matricula != null && (matricula.matches("\\d{4}[a-zA-Z]{3}") || matricula.matches("[a-zA-Z]{1,2}\\d{4}[a-zA-Z]{1,2}"));
     }
 
     private boolean matriculaExiste(String matricula) {
