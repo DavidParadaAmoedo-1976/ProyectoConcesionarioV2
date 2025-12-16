@@ -179,6 +179,7 @@ public class ConcesionarioControlador {
     // Busqueda
     private List<CocheDTO> obtenerDatosParaLaBusqueda(List<CocheDTO> coches) {
         List<CocheDTO> busqueda = new ArrayList<>();
+        List<CocheDTO> busquedaMatricula = new ArrayList<>();
         if (coches == null || coches.isEmpty()) {
             vista.mensajeError("No hay coches en la lista");
             return busqueda;
@@ -202,18 +203,15 @@ public class ConcesionarioControlador {
                 String matricula = solicitarMatricula(true);
                 for (CocheDTO c : coches) {
                     if (c.getMatricula().contains(matricula)) {
-                        busqueda.add(c);
+                        busquedaMatricula.add(c);
                     }
                 }
-                vista.mensaje("No existen coches con esa matrícula.");
-                return busqueda;
-
             }
         }
-
+        vista.mensaje("Selecciona D para coches disponibles o V para coches vendidos.");
         List<CocheDTO> busquedaTemp = new ArrayList<>();
         boolean disponible = solicitarBoolean("D","V");
-        for (CocheDTO coche : coches) {
+        for (CocheDTO coche : busquedaMatricula) {
             if (coche.isDisponible() == disponible) {
                 busquedaTemp.add(coche);
             }
@@ -381,11 +379,11 @@ public class ConcesionarioControlador {
     }
 
     private boolean solicitarBoolean(String dato1,String dato2) {
-        String input = "";
+        String input;
 
         while (true) {
-            input = vista.solicitarEntrada("Introduce " + dato1 + " | " + dato1.toLowerCase() + " o " + dato2 + " | " + dato1.toLowerCase() + ": ");
-            if (input.equalsIgnoreCase(dato1) || input.equalsIgnoreCase("V")) {
+            input = vista.solicitarEntrada("Introduce " + dato1 + "|" + dato1.toLowerCase() + " o " + dato2 + "|" + dato2.toLowerCase() + ": ");
+            if (input.equalsIgnoreCase(dato1) || input.equalsIgnoreCase(dato2)) {
                 break;
             } else {
                 vista.mensajeError("Error: Introduzca " + dato1 + " o " + dato2 + " correctamente.");
@@ -458,6 +456,7 @@ public class ConcesionarioControlador {
             matricula = vista.solicitarEntrada("Introduce la matrícula del coche sin espacios ni guiones: ").toUpperCase();
             if (nulo) {
                 if (matricula.isBlank()) break;
+                return matricula;
             }
             if (!validarFormatoMatricula(matricula)) {
                 vista.mensajeError("El formato de matrícula es incorrecto para este país.");

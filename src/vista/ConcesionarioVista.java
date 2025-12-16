@@ -37,6 +37,11 @@ public class ConcesionarioVista {
     }
 
     public void mostrarClientes(List<ClienteDTO> clientes) {
+        if (clientes == null || clientes.isEmpty()) {
+            mensajeError("No hay clientes en la lista.");
+            esperarIntro();
+            return;
+        }
         System.out.println("\n" + "\t".repeat(16) + ColoresEnum.MORADO.getFormato() + ColoresEnum.SUBRAYADO.getFormato()  + "*** Lista de clientes ***" + ColoresEnum.RESET.getFormato() + "\n");
         logo();
         System.out.print("\t".repeat(5) + " \u250C" + "\u2500".repeat(34) + "\u252C" + "\u2500".repeat(13) + "\u252C" + "\u2500".repeat(17) + "\u252C" + "\u2500".repeat(43)  + "\u2510");
@@ -67,7 +72,8 @@ public class ConcesionarioVista {
 
     public void mostrarVentas(List<VentaDTO> ventas) {
         if (ventas == null || ventas.isEmpty()) {
-            System.err.println("No hay ventas en la lista.");
+            mensajeError("No hay ventas en la lista.");
+            esperarIntro();
             return;
         }
         System.out.println("\n" + "\t".repeat(16) + ColoresEnum.MORADO.getFormato() + ColoresEnum.SUBRAYADO.getFormato() +  "*** Lista de ventas ***" + ColoresEnum.RESET.getFormato() + "\n");
@@ -98,7 +104,8 @@ public class ConcesionarioVista {
 
     public void mostrarCochesSimple(List<CocheDTO> coches) {
         if (coches == null || coches.isEmpty()) {
-            System.err.println("No hay coches en la lista.");
+            mensajeError("No hay coches en la lista.");
+            esperarIntro();
             return;
         }
         for (CocheDTO coche : coches) {
@@ -114,7 +121,8 @@ public class ConcesionarioVista {
 
     public void mostrarCoches(List<CocheDTO> listaCoches, String tipo) {
         if (listaCoches == null || listaCoches.isEmpty()) {
-            System.err.println("No hay coches en la lista.");
+            mensajeError("No hay coches en la lista.");
+            esperarIntro();
             return;
         }
         System.out.println("\n" + "\t".repeat(13) + ColoresEnum.MORADO.getFormato() + ColoresEnum.SUBRAYADO.getFormato() + "*** Lista de " + tipo + " ***" + ColoresEnum.RESET.getFormato() + "\n");
@@ -160,7 +168,8 @@ public class ConcesionarioVista {
 
     public void mostrarVendedores(List<VendedorDTO> vendedores) {
         if (vendedores == null || vendedores.isEmpty()) {
-            System.err.println("No hay vendedores en la lista.");
+            mensajeError("No hay vendedores en la lista.");
+            esperarIntro();
             return;
         }
         for (VendedorDTO vendedor : vendedores) {
@@ -169,7 +178,7 @@ public class ConcesionarioVista {
     }
 
     public void mostrarEstadisticas(VendedorDTO vendedor, double mediaPrecio, CocheDTO cocheMasCaro, int numeroCochesVendidos, List<CocheDTO> cochesVendidosVendedor, double sumaPrecios) {
-        System.out.println(ColoresEnum.MORADO.getFormato() + ColoresEnum.SUBRAYADO.getFormato() + "\n" + "\t".repeat(15) + "*** Estadisticas del Vendedor ***\n" + ColoresEnum.RESET.getFormato() +
+        System.out.println("\n" + "\t".repeat(15) + ColoresEnum.MORADO.getFormato() + ColoresEnum.SUBRAYADO.getFormato() +  "*** Estadisticas del Vendedor ***\n" + ColoresEnum.RESET.getFormato() +
                 ColoresEnum.CYAN.getFormato() + vendedor.getNombreCompleto() + ColoresEnum.RESET.getFormato() + "\n" +
                 "\nPrecio medio de los coches vendidos = " + ColoresEnum.CYAN.getFormato() + mediaPrecio + ColoresEnum.RESET.getFormato() +
                 "\nEl coche mas caro fue: " + ColoresEnum.CYAN.getFormato() + cocheMasCaro.getMarca() + ", " + cocheMasCaro.getModelo() + ", con matrícula: " + cocheMasCaro.getMatricula() + " y con un precio de " + cocheMasCaro.getPrecio() + " €." + ColoresEnum.RESET.getFormato() +
